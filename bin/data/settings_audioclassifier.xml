@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<AudioClassifier>
+	<Class_Label>1</Class_Label>
+	<Record>0</Record>
+	<Predicting>0</Predicting>
+	<Threshold_Mode>0</Threshold_Mode>
+	<Threshold_timer__ms_>40</Threshold_timer__ms_>
+	<volThreshold>0</volThreshold>
+	<OSC_settings>
+		<IP>localhost</IP>
+		<port>8000</port>
+		<message>/classification</message>
+	</OSC_settings>
+</AudioClassifier>
