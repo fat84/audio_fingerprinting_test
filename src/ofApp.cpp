@@ -2,10 +2,10 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetWindowShape(860, 330);
+    ofSetWindowShape(860, 400);
     ofSetWindowTitle("Audio Classifier");
     ofSetFrameRate(60);
-    ofBackground(60);
+    ofBackground('#171717');
     
     nMfcc = 13;
     numFrames = 5;
@@ -210,11 +210,6 @@ void ofApp::draw(){
     sprintf(rmsString, "RMS: %.2f", rms);
     smallFont.drawString(rmsString, 10, 57);
     
-    cout << ofToString(rms) << endl;
-    
-    
-    
-    
     //Threshold line
     if (tThresholdMode) {
         float thresh = logMult * log(1 + volThreshold) + 10;
@@ -262,6 +257,10 @@ void ofApp::draw(){
         
         std::string txt2 = "Buffered Out: " + ofToString( prediction );
         
+        ofSetColor(255,255,255);
+        classifiedObject.load(ofToString(prediction) + ".jpg");
+        classifiedObject.draw(32, 250,100,100);
+        
         ofRectangle bounds1 = hugeFont.getStringBoundingBox( txt1, 0, 0 );
         ofRectangle bounds2 = hugeFont.getStringBoundingBox( txt2, 0, 0 );
         ofSetColor(255, predictionAlpha);
@@ -271,7 +270,9 @@ void ofApp::draw(){
     
     ofPopMatrix();
     
-    gui.draw();
+    if (guiActive == true) {
+        gui.draw();
+    }
 }
 
 
@@ -412,7 +413,9 @@ void ofApp::keyPressed(int key){ //Optional key interactions
         case 'm':
             tThresholdMode =! tThresholdMode;
             break;
-            
+        case 'g':
+            guiActive =! guiActive;
+            break;
         default:
             break;
     }
@@ -437,7 +440,7 @@ void ofApp::trainClassifier() {
 void ofApp::setupPrediction() {
     infoText = "Pipeline Trained";
     predictionPlot.setup( 500, pipeline.getNumClasses(), "prediction likelihoods" );
-    predictionPlot.setDrawGrid( true );
+    predictionPlot.setDrawGrid( false );
     predictionPlot.setDrawInfoText( true );
     predictionPlot.setFont( smallFont );
     predictionPlot.setBackgroundColor( ofColor(50,50,50,255));
@@ -455,7 +458,7 @@ void ofApp::eSave() {
 
 //--------------------------------------------------------------
 void ofApp::eLoad() {
-    ofFileDialogResult result = ofSystemLoadDialog("Which model to load?", true);
+    ofFileDialogResult result = ofSystemLoadDialog("Which model to load?", false);
     if (result.bSuccess) {
         load(result.filePath);
     }
@@ -468,7 +471,7 @@ void ofApp::save(string modelName) {
         gui.saveToFile(ofToDataPath("models/"+modelName+".grt_settings.xml"));
     }
     else {
-        infoText = "WARNING: Failed to save training data to file";
+        infoText = "WARNING: Failed xto save training data to file";
     }
 }
 

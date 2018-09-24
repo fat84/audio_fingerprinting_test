@@ -115,11 +115,15 @@ class ofApp : public ofBaseApp{
     ofxButton  bTrain, bSave, bLoad, bClear, bOscSettings;
     ofxToggle tThresholdMode, tRecord;
     
+    bool guiActive = false;
+    
     //Threshold & triggermode
     bool thresholdMode = false;
     bool singleTrigger = false;
     float predictionAlpha = 255;
     long startTime;
+    
+    ofImage classifiedObject;
     
    
     
