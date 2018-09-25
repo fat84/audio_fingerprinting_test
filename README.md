@@ -1,30 +1,25 @@
 # About emptyExample
 
-![Screenshot of emptyExample](emptyExample.png)
+### Installation
 
-### Learning Objectives
+Requires the following addons:
 
-This example is the simplest possible openFrameworks app! It does nothing. 
+Download the add ons from the repositories and drag them to the openFrameworks addons folder.
+ofxGrt
+ofxGui
+ofxMaxim
+ofxOsc
 
-...Well, *almost* nothing. Although it may not be apparent, the emptyExample activates all of the default system states. (For example, it sets the default fill color to white; it just doesn't happen to draw anything with it.)
+### Operation
 
-The emptyExample is great for making sure that your openFrameworks development environment is compiling properly. It can also be useful as a "starter template" for making simple programs. 
+The app has been harcoded for now to run with two toys that are were trained in the model. Open the application.
 
-The emptyExample will help you understand what are the bare necessities of an openFrameworks program. In this regard, you can think of it as a "Hello World" for OF. 
+Open the application and press G to open the GUI, in the GUI press L to load a model, open the model saved in the models folder.
 
+Use one of the toys to be recogznined.
 
-### Expected Behavior
+The RMS value is being sent to localhost/ via OSC, the parameters are the float of RMS value and one int for the classification of the sounds.
 
-When launching this app, you should see a light-gray screen. 
-
-* There's no interaction. 
-* There's nothing to see. 
-* That's it. 
-
-Instructions for using the app:
-
-* There's nothing to do. Move along.
-
-### Other classes used in this file
-
-This example uses no other classes.
+int 1 : background noise
+int 2 : shaker
+int 3 : wooden toy
