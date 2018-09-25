@@ -1,6 +1,9 @@
-# About emptyExample
+# Audio Fingerprinting Test
 
-Source project is [here](https://github.com/ml4a/ml4a-ofx/tree/master/apps/AudioClassifier)
+
+This is a test implementation of ML4A audio classifier, it uses a pretrained model to recognize two objects and display their photographs. It sends the arguments over OSC
+
+ Source Project [here](https://github.com/ml4a/ml4a-ofx/tree/master/apps/AudioClassifier)
 
 ### Installation and addons
 
@@ -26,9 +29,12 @@ On project generator make sure to add the add ons above and these ones:
 
 The app has been harcoded for now to run with two toys that are were trained in the model. Open the application.
 
-Open the application and press G to open the GUI, in the GUI press L to load a model, open the model saved in the models folder.
 
-Use one of the toys to be recogznined.
+* Open the application and press G to open the GUI
+* Hit L to load a model, open the model saved in the models folder.
+* Hit G to hide the UI
+
+### OSC Out
 
 The RMS value is being sent to localhost/ via OSC, the parameters are the float of RMS value and one int for the classification of the sounds.
 
