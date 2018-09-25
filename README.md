@@ -1,14 +1,26 @@
 # About emptyExample
 
-### Installation
+Source project is [here](https://github.com/ml4a/ml4a-ofx/tree/master/apps/AudioClassifier)
+
+### Installation and addons
 
 Requires the following addons:
 
 Download the add ons from the repositories and drag them to the openFrameworks addons folder.
-ofxGrt
-ofxGui
-ofxMaxim
-ofxOsc
+
+* [ofxGrt](https://github.com/nickgillian/ofxGrt)
+* [ofxMaxim](https://github.com/falcon4ever/ofxMaxim)
+
+On project generator make sure to add the add ons above and these ones:
+* ofxGui
+* ofxOsc
+
+### Cross Compiling in windows
+
+* Use the [project generator](https://openframeworks.cc/learning/01_basics/create_a_new_project/) to create a new project. Remember to include the addons above.
+
+* Copy all files in src/ and bin/data
+
 
 ### Operation
 
