@@ -4,8 +4,8 @@
 	<Record>0</Record>
 	<Predicting>1</Predicting>
 	<Threshold_Mode>0</Threshold_Mode>
-	<Threshold_timer__ms_>55</Threshold_timer__ms_>
-	<volThreshold>0.3</volThreshold>
+	<Threshold_timer__ms_>1</Threshold_timer__ms_>
+	<volThreshold>0.95</volThreshold>
 	<OSC_settings>
 		<IP>localhost</IP>
 		<port>8000</port>

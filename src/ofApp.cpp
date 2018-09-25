@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetWindowShape(860, 400);
+    ofSetWindowShape(860, 860);
     ofSetWindowTitle("Audio Classifier");
     ofSetFrameRate(60);
     ofBackground('#171717');
@@ -52,7 +52,7 @@ void ofApp::setup(){
     predicting = false;
     trainingData.setNumDimensions( nMfcc*2 );
     
-    SVM svm; //Other classifiers: AdaBoost adaboost; DecisionTree dtree; KNN knn; GMM gmm; ANBC naiveBayes; MinDist minDist; RandomForests randomForest; Softmax softmax; SVM svm;
+    SVM svm;
     svm.setMaxNumEpochs(5000);
     svm.setMaxNumEpochs(10000);
     pipeline.setClassifier( svm );
@@ -191,6 +191,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    if (guiActive == true) {
+        
     ofPushMatrix();
     ofTranslate(220, 10);
     
@@ -245,21 +248,17 @@ void ofApp::draw(){
     smallFont.drawString( infoText, 10, 225);
     
     ofPopMatrix();
-    
     ofPushMatrix();
+        
     ofTranslate(430, 10);
     
     //If the model has been trained, then draw this
+        
     if( pipeline.getTrained() ){
         ofSetLineWidth(1);
         predictionPlot.draw( 10, 10, 410, 140 );
         std::string txt1 = "Predicted: " + ofToString( predictedClassLabel );
-        
         std::string txt2 = "Buffered Out: " + ofToString( prediction );
-        
-        ofSetColor(255,255,255);
-        classifiedObject.load(ofToString(prediction) + ".jpg");
-        classifiedObject.draw(32, 250,100,100);
         
         ofRectangle bounds1 = hugeFont.getStringBoundingBox( txt1, 0, 0 );
         ofRectangle bounds2 = hugeFont.getStringBoundingBox( txt2, 0, 0 );
@@ -268,10 +267,14 @@ void ofApp::draw(){
         hugeFont.drawString( txt2, 32, 240);
     }
     
-    ofPopMatrix();
-    
-    if (guiActive == true) {
+        ofPopMatrix();
         gui.draw();
+    }
+    
+    if (pipeline.getTrained() && guiActive == false) {
+        ofSetColor(255,255,255);
+        classifiedObject.load(ofToString(prediction) + ".jpg");
+        classifiedObject.draw(0, 0,860,860);
     }
 }
 
@@ -282,7 +285,7 @@ void ofApp::fillVector(int predictedClassLabel) {
     vector<int>::iterator it = classification_buffer.begin();
     //cout << *it << endl;
     
-    if (classification_buffer.size() == 40) {
+    if (classification_buffer.size() == 80) {
         ofLog(OF_LOG_NOTICE,"Vector Full");
         prediction = mostCommon(classification_buffer);
         classification_buffer.erase(it, classification_buffer.end());
@@ -433,7 +436,7 @@ void ofApp::trainClassifier() {
     }
     
     ofLog(OF_LOG_NOTICE, "Done training...");
-   
+    
 }
 
 //--------------------------------------------------------------
