@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <AudioClassifier>
-	<Class_Label>3</Class_Label>
+	<Class_Label>2</Class_Label>
 	<Record>0</Record>
 	<Predicting>1</Predicting>
 	<Threshold_Mode>0</Threshold_Mode>

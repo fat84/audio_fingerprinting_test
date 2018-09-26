@@ -245,12 +245,14 @@ void ofApp::draw(){
     smallFont.drawString( "Num Samples: " + ofToString( trainingData.getNumSamples() ), 10, 200 );
     //smallFont.drawString( "Total input values: "+ofToString(2*nMfcc), 10, 185 );
     ofSetColor(0,255,0);
+    
     smallFont.drawString( infoText, 10, 225);
     
     ofPopMatrix();
     ofPushMatrix();
         
     ofTranslate(430, 10);
+    
     
     //If the model has been trained, then draw this
         
@@ -275,6 +277,10 @@ void ofApp::draw(){
         ofSetColor(255,255,255);
         classifiedObject.load(ofToString(prediction) + ".jpg");
         classifiedObject.draw(0, 0,860,860);
+        
+        
+      
+        
     }
 }
 
@@ -293,6 +299,8 @@ void ofApp::fillVector(int predictedClassLabel) {
     }
     
 }
+
+
 
 
 //--------------------------------------------------------------
