@@ -6,6 +6,8 @@
 #include "ofxGui.h"
 #include "ofxOsc.h"
 #include "FeatureWindow.h"
+#include "ball.h"
+#include "circle.h"
 
 
 // where to send osc messages by default
@@ -124,6 +126,10 @@ class ofApp : public ofBaseApp{
     long startTime;
     
     ofImage classifiedObject;
+    
+    // Graphics
+    Ball bouncingBall;
+    Circle bouncingCircle;
     
    
     

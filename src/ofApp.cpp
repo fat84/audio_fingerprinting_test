@@ -2,6 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    
     ofSetWindowShape(860, 860);
     ofSetWindowTitle("Audio Classifier");
     ofSetFrameRate(60);
@@ -9,6 +11,11 @@ void ofApp::setup(){
     
     nMfcc = 13;
     numFrames = 5;
+    
+    
+    // Setup Graphics
+    bouncingCircle.setup();
+    bouncingBall.setup();
     
     //MAXIM
     // This is stuff you always need when you use Maximilian. Don't change it.
@@ -186,7 +193,13 @@ void ofApp::update(){
     if (tThresholdMode && predictionAlpha > 0  ) predictionAlpha-=5;
     if (!tThresholdMode) predictionAlpha = 255;
     
-    sendOSC();
+    
+    if(prediction == 2) {
+        bouncingBall.update(rms*10);
+    } else if (prediction == 3) {
+        bouncingCircle.update(rms*5);
+    }
+    //sendOSC();
 }
 
 //--------------------------------------------------------------
@@ -256,7 +269,7 @@ void ofApp::draw(){
     
     //If the model has been trained, then draw this
         
-    if( pipeline.getTrained() ){
+    if( pipeline.getTrained() && guiActive == true ){
         ofSetLineWidth(1);
         predictionPlot.draw( 10, 10, 410, 140 );
         std::string txt1 = "Predicted: " + ofToString( predictedClassLabel );
@@ -273,14 +286,27 @@ void ofApp::draw(){
         gui.draw();
     }
     
+    
     if (pipeline.getTrained() && guiActive == false) {
-        ofSetColor(255,255,255);
-        classifiedObject.load(ofToString(prediction) + ".jpg");
+        // Draw Graphics on top
         classifiedObject.draw(0, 0,860,860);
         
-        
-      
-        
+        if(prediction == 2) {
+    
+            classifiedObject.load("2.jpg");
+            ofSetColor(255,255,255);
+            ofTranslate(ofGetWidth()/2-150, ofGetHeight()/2);
+            bouncingBall.draw();
+        } else if (prediction == 3) {
+            classifiedObject.load("3.jpg");
+            ofSetColor(255,255,255);
+            
+            ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+            bouncingCircle.draw();
+        }
+        else {
+            classifiedObject.load("1.jpg");
+        }
     }
 }
 
@@ -337,7 +363,7 @@ int ofApp::mostCommon(vector<int> a){
 }
 
 //--------------------------------------------------------------
-void ofApp::audioRequested     (float * output, int bufferSize, int nChannels){
+void ofApp::audioRequested(float * output, int bufferSize, int nChannels){
     //    static double tm;
     for (int i = 0; i < bufferSize; i++){
         wave = lAudioIn[i];
@@ -365,6 +391,7 @@ void ofApp::audioReceived(float * input, int bufferSize, int nChannels){
         sum += input[i*2] * input[i*2];
     }
     rms = ofLerp(rms, sqrt(sum), 0.7);
+    ofLog() << rms << endl;
 }
 
 
